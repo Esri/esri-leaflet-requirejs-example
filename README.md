@@ -1,6 +1,6 @@
-# Esri Leaflet Browserify Example
+# Esri Leaflet RequireJS Example
 
-Example of using [Leaflet](http://leafletjs.com) and [Esri Leaflet](http://esri.github.io/esri-leaflet/) with [Browserify](http://browserify.org/)!
+Example of using [Leaflet](http://leafletjs.com) and [Esri Leaflet](http://esri.github.io/esri-leaflet/) with [RequireJS](http://requirejs.org/)!
 
 1. [Fork and clone this repo](https://help.github.com/articles/fork-a-repo)
 2. `cd` into `esri-leaflet-browserify-example`
