@@ -3,24 +3,7 @@ require.config({
   paths: {
     'leaflet': 'node_modules/leaflet/dist/leaflet',
     'esri-leaflet': 'node_modules/esri-leaflet/dist/esri-leaflet',
-    'esri-leaflet-clustered-feature-layer': 'node_modules/esri-leaflet-clustered-feature-layer/dist/esri-leaflet-clustered-feature-layer-src',
-    'esri-leaflet-heatmap-feature-layer': 'node_modules/esri-leaflet-heatmap-feature-layer/dist/esri-leaflet-heatmap-feature-layer-src',
-    'leaflet-heat': 'node_modules/leaflet.heat/dist/leaflet-heat',
-    'leaflet-markercluster': 'node_modules/leaflet.markercluster/dist/leaflet.markercluster'
-  },
-
-  // since Leaflet.heat and Leaflet.markercluster are not wrapped for AMD we need to use a shim config
-  // see http://requirejs.org/docs/api.html#config-shim for more info
-  shim: {
-    'leaflet': {
-      exports: 'L'
-    },
-    'leaflet-heat': {
-      deps: ['leaflet'],
-    },
-    'leaflet-markercluster': {
-      deps: ['leaflet'],
-    }
+    'esri-leaflet-geocoder': 'node_modules/esri-leaflet-geocoder/dist/esri-leaflet-geocoder'
   }
 });
 
@@ -28,17 +11,37 @@ require.config({
 require([
   'leaflet',
   'esri-leaflet',
-  'esri-leaflet-clustered-feature-layer',
-  'esri-leaflet-heatmap-feature-layer',
-  'leaflet-heat',
-  'leaflet-markercluster'
-], function (L, Esri, ClusteredFeatureLayer, HeatmapFeatureLayer) {
+  'esri-leaflet-geocoder'
+], function (L, esri, geocoding) {
 
-  // start coding!
+  // since leaflet is bundled into the npm package it won't be able to detect where the images
+  // solution is to point it to where you host the the leaflet images yourself
+  L.Icon.Default.imagePath = 'http://cdn.leafletjs.com/leaflet-0.7.3/images';
+
+  // create map
   var map = L.map('map').setView([45.526, -122.667], 15);
-  var tiles = new Esri.BasemapLayer('Topographic').addTo(map);
 
-  var features = new Esri.FeatureLayer('http://services.arcgis.com/rOo16HdIMeOBI4Mb/arcgis/rest/services/Trimet_Transit_Stops/FeatureServer/0').addTo(map);
-  // var clusters = new ClusteredFeatureLayer('http://services.arcgis.com/rOo16HdIMeOBI4Mb/arcgis/rest/services/Trimet_Transit_Stops/FeatureServer/0').addTo(map);
-  // var heatmap = new HeatmapFeatureLayer('http://services.arcgis.com/rOo16HdIMeOBI4Mb/arcgis/rest/services/Trimet_Transit_Stops/FeatureServer/0').addTo(map);
+  // add basemap
+  esri.basemapLayer('Topographic').addTo(map);
+
+  // add layer
+  esri.featureLayer({
+    url: '//services.arcgis.com/uCXeTVveQzP4IIcx/arcgis/rest/services/gisday/FeatureServer/0/'
+  }).addTo(map);
+
+  // add search control
+  geocoding.geosearch({
+    providers: [
+      geocoding.arcgisOnlineProvider(),
+      geocoding.featureLayerProvider({
+        url: '//services.arcgis.com/uCXeTVveQzP4IIcx/arcgis/rest/services/gisday/FeatureServer/0/',
+        searchFields: ['Name', 'Organization'],
+        label: 'GIS Day Events',
+        bufferRadius: 20000,
+        formatSuggestion: function (feature) {
+          return feature.properties.Name + ' - ' + feature.properties.Organization;
+        }
+      })
+    ]
+  }).addTo(map);
 });
