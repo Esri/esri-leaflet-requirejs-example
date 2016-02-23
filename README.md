@@ -7,7 +7,19 @@ Example of using [Leaflet](http://leafletjs.com) and [Esri Leaflet](http://esri.
 3. Install dependencies with `npm install`
 4. Open `index.html` in your browser.
 
-*Note*: Shim configs may or may not work with the r.js build optimizer. So you will not be able to build this project with r.js. See "Important notes for "shim" config" in http://requirejs.org/docs/api.html#config-shim. In order to support r.js all dependant modules need to properly handle the fact that browser globals may not exist.
+## Using r.js
+
+This example includes a configuration file `build-config.js` that also sets up Leaflet and Esri Leaflet with the [RequireJS Optimizer](http://requirejs.org/docs/optimization.html). You can run the optimizer with:
+
+```bash
+node node_modules/.bin/r.js -o build-config.js
+```
+
+or
+
+```bash
+npm run build
+```
 
 ### Contributing
 
