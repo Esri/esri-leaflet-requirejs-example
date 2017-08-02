@@ -16,7 +16,7 @@ require([
 
   // since leaflet is bundled into the npm package it won't be able to detect where the images
   // solution is to point it to where you host the the leaflet images yourself
-  L.Icon.Default.imagePath = 'http://cdn.leafletjs.com/leaflet-0.7.3/images';
+  L.Icon.Default.imagePath = 'https://unpkg.com/leaflet@1.1.0/dist/images/';
 
   // create map
   var map = L.map('map').setView([45.526, -122.667], 15);
@@ -26,7 +26,7 @@ require([
 
   // add layer
   esri.featureLayer({
-    url: '//services.arcgis.com/uCXeTVveQzP4IIcx/arcgis/rest/services/gisday/FeatureServer/0/'
+    url: 'https://services.arcgis.com/uCXeTVveQzP4IIcx/arcgis/rest/services/gisday/FeatureServer/0/'
   }).addTo(map);
 
   // add search control
@@ -34,7 +34,7 @@ require([
     providers: [
       geocoding.arcgisOnlineProvider(),
       geocoding.featureLayerProvider({
-        url: '//services.arcgis.com/uCXeTVveQzP4IIcx/arcgis/rest/services/gisday/FeatureServer/0/',
+        url: 'https://services.arcgis.com/uCXeTVveQzP4IIcx/arcgis/rest/services/gisday/FeatureServer/0/',
         searchFields: ['Name', 'Organization'],
         label: 'GIS Day Events',
         bufferRadius: 20000,
