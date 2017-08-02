@@ -3,7 +3,9 @@ require.config({
   paths: {
     'leaflet': 'node_modules/leaflet/dist/leaflet',
     'esri-leaflet': 'node_modules/esri-leaflet/dist/esri-leaflet',
-    'esri-leaflet-geocoder': 'node_modules/esri-leaflet-geocoder/dist/esri-leaflet-geocoder'
+    'esri-leaflet-geocoder': 'node_modules/esri-leaflet-geocoder/dist/esri-leaflet-geocoder',
+    'proj4': 'https://unpkg.com/proj4@2.4.3/dist/proj4-src',
+    'proj4leaflet': 'https://unpkg.com/proj4leaflet@1.0.1/lib/proj4'
   }
 });
 
@@ -11,8 +13,11 @@ require.config({
 require([
   'leaflet',
   'esri-leaflet',
-  'esri-leaflet-geocoder'
-], function (L, esri, geocoding) {
+  'esri-leaflet-geocoder',
+  'proj4',
+  'proj4leaflet'
+
+], function (L, esri, geocoding, proj4, proj4leaflet) {
 
   // since leaflet is bundled into the npm package it won't be able to detect where the images
   // solution is to point it to where you host the the leaflet images yourself
@@ -44,4 +49,7 @@ require([
       })
     ]
   }).addTo(map);
+
+  console.log(proj4);
+  console.log(proj4leaflet);
 });
