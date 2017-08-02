@@ -4,13 +4,17 @@
   "description": "Example of Esri Leaflet with RequireJS",
   "main": "app.js",
   "author": "Patrick Arlt <parlt@esri.com> (http://patrickarlt.com)",
-  "license": "Apache",
+  "license": "Apache-2.0",
   "readmeFilename": "README.md",
   "dependencies": {
-    "leaflet": "^1.0.0-beta.1",
-    "esri-leaflet": "^2.0.0-beta.5",
-    "esri-leaflet-geocoder": "^2.0.0-beta.3",
+    "leaflet": "^1.0.0",
+    "esri-leaflet": "^2.0.0",
+    "esri-leaflet-geocoder": "^2.0.0",
     "requirejs": "^2.1.15"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:Esri/esri-leaflet-requirejs-example.git"
   },
   "scripts": {
     "build": "r.js -o build-config.js"

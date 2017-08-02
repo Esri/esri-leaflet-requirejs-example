@@ -9,16 +9,16 @@ Example of using [Leaflet](http://leafletjs.com) and [Esri Leaflet](http://esri.
 
 ## Using r.js
 
-This example includes a configuration file `build-config.js` that also sets up Leaflet and Esri Leaflet with the [RequireJS Optimizer](http://requirejs.org/docs/optimization.html). You can run the optimizer with:
-
-```bash
-node node_modules/.bin/r.js -o build-config.js
-```
-
-or
+This example includes a configuration file `build-config.js` that also bundles Leaflet and Esri Leaflet with the [RequireJS Optimizer](http://requirejs.org/docs/optimization.html). You can run the optimizer with:
 
 ```bash
 npm run build
+```
+
+afterwards, you'll need to update `index.html` in order to fetch the dependencies in a single bundle instead of plucking them individually from the `/node_modules` directory.
+
+```html
+<script src="node_modules/requirejs/require.js" data-main="app-built.js"></script>
 ```
 
 ### Contributing
@@ -26,7 +26,7 @@ npm run build
 Esri welcomes contributions from anyone and everyone. Please see our [guidelines for contributing](https://github.com/Esri/esri-leaflet-requirejs-example/blob/master/CONTRIBUTING.md).
 
 ### Licensing
-Copyright 2013 Esri
+Copyright 2017 Esri
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -41,6 +41,3 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 A copy of the license is available in the repository's [LICENSE](./LICENSE) file.
-
-[](Esri Tags: ArcGIS Web Mapping Leaflet RequireJS AMD)
-[](Esri Language: JavaScript)
